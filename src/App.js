@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import Modal from './components/Modal/index';
 
 function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const close = () => setModalOpen(false);
+  const open = () => setModalOpen(true);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <motion.button
+        whileHover={{ scale: 1.1}}
+        whileTap={{ scale: 0.9}}
+        className="save-button"
+        onClick={() => modalOpen ? close() : open()}>
+          bigztar enterprise
+      </motion.button>
+
+      <AnimatePresence
+        initial={false}
+
+        exitBeforeEnter={true}
+
+        onExitComplete={() => null}
         >
-          Learn React
-        </a>
-      </header>
+        {modalOpen && <Modal modalOpen={modalOpen} handleClose={close} />}
+      </AnimatePresence>
     </div>
   );
 }
